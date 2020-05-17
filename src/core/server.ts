@@ -1,13 +1,11 @@
-import { Application } from 'https://deno.land/x/oak/mod.ts'
+import { Application } from 'https://deno.land/x/oak/application.ts'
+import { router } from './router.ts'
 import { environment } from './environment.ts'
 
 export const app = new Application()
 
-app.use(async (ctx) => {
-  ctx.response.body = {
-    message: 'Hello! I\'m alive!'
-  }
-})
+app.use(router.routes())
+app.use(router.allowedMethods())
 
 export function start() {
   console.log(`Start server at port ${environment.PORT}`)
